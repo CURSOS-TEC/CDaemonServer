@@ -4,4 +4,4 @@ main:
 	@${CC} TCPServer.c -o server.o
 
 main2:
-	@${CC} CESceerver.c CEmain.c -o cemain.o
+	@${CC} CEServer.c CEmain.c -o cemain.o

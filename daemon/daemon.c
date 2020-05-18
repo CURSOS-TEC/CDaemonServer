@@ -11,6 +11,9 @@
 #include <string.h>
 #include <time.h>
 #include "server/CEServer.h"
+
+#define LOG(X, Y) fprintf(fp, #X ": Time:%s, File:%s(%d) " #Y "\n", __TIMESTAMP__, __FILE__, __LINE__)
+static const char LOG_FILE[] = "/var/log/ce-image-server.log";
 /** This program test an image reader */
 int main(int argc, char **argv)
 {
@@ -43,6 +46,9 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
     printf(" SID: %d \n", sid);
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    printf("now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
     /* Change the current working directory */
     if ((chdir("/")) < 0)
@@ -52,9 +58,6 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-    printf("now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
     /* Close out the standard file descriptors */
     /**
      * The classic guide to POSIX programming "Advanced programming in UNIX environment" states:
@@ -70,29 +73,24 @@ int main(int argc, char **argv)
     int i;
 
     /* The Big Loop */
+    fp = fopen(LOG_FILE, "a");
+    fprintf(fp, "Daemon initialize now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    fclose(fp);
 
     while (1)
     {
-        /* Do some task here ... */
-        sleep(5); /* wait 5 seconds */
-                  /* open the file for writing*/
-        fp = fopen("/home/gotouch/tec/so_projects/daemon/testFile", "a");
+
+        fp = fopen(LOG_FILE, "a");
 
         /* write 10 lines of text into the file stream*/
         for (i = 0; i < 10; i++)
         {
-            // time_t t = time(NULL);
-            // printf(" PID: %d \n", pid);
-            // struct tm tm = *localtime(&t);
-            // fprintf(fp, "now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-            // sleep(1);
-            // // fprintf(fp, "This is line %d  written by PID: %i \n", i + 1, pid);
-
-            CEServerStr serverStr =
-                {
-                    port_number : 9001
-                };
-            start_server(serverStr);
+            time_t t = time(NULL);
+            printf(" PID: %d \n", pid);
+            struct tm tm = *localtime(&t);
+            fprintf(fp, " loop insertion: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            sleep(1);
+            // fprintf(fp, "This is line %d  written by PID: %i \n", i + 1, pid);
         }
 
         /* close the file*/
