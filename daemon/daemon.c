@@ -10,6 +10,7 @@
 #include <syslog.h>
 #include <string.h>
 #include <time.h>
+#include "server/CEServer.h"
 /** This program test an image reader */
 int main(int argc, char **argv)
 {
@@ -80,12 +81,18 @@ int main(int argc, char **argv)
         /* write 10 lines of text into the file stream*/
         for (i = 0; i < 10; i++)
         {
-            time_t t = time(NULL);
-            printf(" PID: %d \n", pid);
-            struct tm tm = *localtime(&t);
-            fprintf(fp, "now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-            sleep(1);
-            // fprintf(fp, "This is line %d  written by PID: %i \n", i + 1, pid);
+            // time_t t = time(NULL);
+            // printf(" PID: %d \n", pid);
+            // struct tm tm = *localtime(&t);
+            // fprintf(fp, "now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            // sleep(1);
+            // // fprintf(fp, "This is line %d  written by PID: %i \n", i + 1, pid);
+
+            CEServerStr serverStr =
+                {
+                    port_number : 9001
+                };
+            start_server(serverStr);
         }
 
         /* close the file*/
