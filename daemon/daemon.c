@@ -74,28 +74,14 @@ int main(int argc, char **argv)
 
     /* The Big Loop */
     fp = fopen(LOG_FILE, "a");
-    fprintf(fp, "Daemon initialize now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    fprintf(fp, "Daemon initialize PID: %d now: %d-%02d-%02d %02d:%02d:%02d\n", pid, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
     fclose(fp);
 
-    while (1)
-    {
-
-        fp = fopen(LOG_FILE, "a");
-
-        /* write 10 lines of text into the file stream*/
-        for (i = 0; i < 10; i++)
+    CEServerStr serverStr =
         {
-            time_t t = time(NULL);
-            printf(" PID: %d \n", pid);
-            struct tm tm = *localtime(&t);
-            fprintf(fp, " loop insertion: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-            sleep(1);
-            // fprintf(fp, "This is line %d  written by PID: %i \n", i + 1, pid);
-        }
-
-        /* close the file*/
-        fclose(fp);
-    }
+            port_number : 9001
+        };
+    start_server(serverStr);
 
     return 0;
 }
