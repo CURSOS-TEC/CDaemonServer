@@ -39,7 +39,7 @@ int start_server(CEServerStr serverStr)
     char buffer[30000] = {0};
     read(client_socket, buffer, 30000);
     printf("%s\n", buffer);
-    send(client_socket, buffer, sizeof(buffer), 0);
+    send(client_socket, server_messages, sizeof(server_messages), 0);
     // printf("Server sending message");
     close(client_socket);
   }
