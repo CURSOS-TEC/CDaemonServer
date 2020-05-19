@@ -46,7 +46,7 @@ int start_server(CEServerStr serverStr)
     {
 
       // receive data
-      char client_response[1024];
+      char client_response[256];
       recv(client_socket, &client_response, strlen(client_response), 0);
 
       //print out the server's response
