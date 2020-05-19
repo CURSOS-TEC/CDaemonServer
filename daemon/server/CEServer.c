@@ -35,7 +35,7 @@ int start_server(CEServerStr serverStr)
   while (1)
   {
     // client_socket = accept(server_socket, NULL, NULL);
-    client_socket = accept(server_socket, (struct sockaddr *)&client_address, (socklen_t*) sizeof(client_address));
+    client_socket = accept(server_socket, (struct sockaddr *)&client_address, ((socklen_t*) sizeof(client_address)));
     char buffer[30000] = {0};
     read(client_socket, buffer, 30000);
     printf("%s\n", buffer);
