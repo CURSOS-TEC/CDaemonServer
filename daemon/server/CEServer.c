@@ -37,17 +37,25 @@ int start_server(CEServerStr serverStr)
     // client_socket = accept(server_socket, NULL, NULL);
     client_socket = accept(server_socket, (struct sockaddr *)&client_address, ((socklen_t *)sizeof(client_address)));
 
-    
-    // receive data
-    char client_response[256];
-    recv(client_socket, &client_response, strlen(client_response), 0);
+    if (client_socket < 0)
+    {
+      perror("The client is not connected");
+      return 1;
+    }
+    else
+    {
 
-    //print out the server's response
-    printf("The client sent the data: %s\n", client_response);
+      // receive data
+      char client_response[256];
+      recv(client_socket, &client_response, strlen(client_response), 0);
 
-    send(client_socket, server_messages, sizeof(server_messages), 0);
-    // printf("Server sending message");
-    close(client_socket);
+      //print out the server's response
+      printf("The client sent the data: %s\n", client_response);
+
+      send(client_socket, server_messages, sizeof(server_messages), 0);
+      // printf("Server sending message");
+      close(client_socket);
+    }
   }
   close(server_socket);
   return 0;
