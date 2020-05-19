@@ -46,8 +46,8 @@ int start_server(CEServerStr serverStr)
     {
 
       // receive data
-      char client_request[1024];
-      recv(client_socket, &client_request, 1024, 0);
+      char client_request[2048];
+      recv(client_socket, &client_request, 2048, 0);
 
       //print out the server's response
       printf("The client sent the data 1: %s\n", client_request);
