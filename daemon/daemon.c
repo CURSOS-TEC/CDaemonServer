@@ -12,15 +12,43 @@
 #include <time.h>
 #include "server/CEServer.h"
 
-#define LOG(X, Y) fprintf(fp, #X ": Time:%s, File:%s(%d) " #Y "\n", __TIMESTAMP__, __FILE__, __LINE__)
 static const char LOG_FILE[] = "/var/log/ce-image-server.log";
+
+
+void loopDaemon(){
+    // while (1)
+    // {
+    //     /* The Big Loop */
+    //     fp = fopen(LOG_FILE, "a");
+    //     time_t t = time(NULL);
+    //     struct tm tm = *localtime(&t);
+    //     fprintf(fp, "Daemon insertion now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    //     fclose(fp);
+    //     sleep(1);
+    // }
+}
+
+
+/**
+ * Saves a log message
+ */
+void LOG_MESSAGE(char message[])
+{
+    FILE *fp;
+    fp = fopen(LOG_FILE, "a");
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    fprintf(fp, "[%s] %d-%02d-%02d %02d:%02d:%02d   Process %ld \n", message, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, (long)getpid());
+    fclose(fp);
+}
+
 /** This program test an image reader */
 int main(int argc, char **argv)
 {
     pid_t pid, sid;
     pid = fork();
     /* Daemon-specific initialization goes here */
-    FILE *fp;
+    
 
     /* Fork off the parent process */
     if (pid < 0)
@@ -47,10 +75,7 @@ int main(int argc, char **argv)
         /* Log any failure */
         exit(EXIT_FAILURE);
     }
-    printf(" SID: %d \n", sid);
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-    printf("now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+   
 
     /* Change the current working directory */
     if ((chdir("/")) < 0)
@@ -68,18 +93,13 @@ int main(int argc, char **argv)
      */
     close(STDIN_FILENO);
     close(STDOUT_FILENO);
-    close(STDERR_FILENO);
-    int i;
-    while (1)
-    {
-        /* The Big Loop */
-        fp = fopen(LOG_FILE, "a");
-        time_t t = time(NULL);
-        struct tm tm = *localtime(&t);
-        fprintf(fp, "Daemon insertion now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-        fclose(fp);
-        sleep(1);
-    }
-
+    close(STDERR_FILENO);    
+    LOG_MESSAGE("Try to init server");
+    CEServerStr serverStr =
+        {
+            port_number : 9007
+        };
+    start_http_server(serverStr);
+    LOG_MESSAGE("Server finished");
     return 0;
 }
