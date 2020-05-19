@@ -31,10 +31,14 @@ int start_server(CEServerStr serverStr)
   listen(server_socket, 5);
   // accept the connection
   int client_socket;
-  client_socket = accept(server_socket, NULL, NULL);
-  send(client_socket, server_messages, sizeof(server_messages), 0);
-  printf("Server sending message");
-  close(server_socket);
+  while (1)
+  {
+    client_socket = accept(server_socket, NULL, NULL);
+    send(client_socket, server_messages, sizeof(server_messages), 0);
+    printf("Server sending message");
+    close(server_socket);
+  }
+
   return 0;
 }
 
