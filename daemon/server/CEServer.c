@@ -13,7 +13,7 @@ static const char LOG_FILE[] = "/var/log/ce-image-server.log";
  */
 int start_server(CEServerStr serverStr)
 {
-  char server_messages[256] = " you have reacher the server";
+  char server_messages[256] = " you have reacher the server \n";
   // create the server socket
   int server_socket;
 
@@ -46,7 +46,7 @@ int start_server(CEServerStr serverStr)
     {
 
       // receive data
-      char client_response[1024*4];
+      char client_response[1024];
       recv(client_socket, &client_response, strlen(client_response), 0);
 
       //print out the server's response
