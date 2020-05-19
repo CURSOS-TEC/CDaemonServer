@@ -34,8 +34,8 @@ int start_server(CEServerStr serverStr)
   struct sockaddr_in client_address;
   while (1)
   {
-    // client_socket = accept(server_socket, NULL, NULL);
-    client_socket = accept(server_socket, (struct sockaddr *)&client_address, ((socklen_t *)sizeof(client_address)));
+    client_socket = accept(server_socket, NULL, NULL);
+    //client_socket = accept(server_socket, (struct sockaddr *)&client_address, ((socklen_t *)sizeof(client_address)));
 
     if (client_socket < 0)
     {
