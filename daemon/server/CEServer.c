@@ -52,15 +52,15 @@ int start_server(CEServerStr serverStr)
 
       // receive data
       char client_request[2048];
-      char client_request_message[2048];
+      
       recv(client_socket, &client_request, 2048,0 );
 
       //print out the server's response
       printf("The client sent the data: %s\n", client_request);
       
-      
-      recvmsg(client_socket, &client_request_message, 2048);
-      printf("The client sent the message: %s\n", client_request_message);
+      struct msghdr *msg;
+      recvmsg(client_socket, msg, MSG_PEEK);
+      printf("The client sent the message: %s\n", msg);
 
 
 
