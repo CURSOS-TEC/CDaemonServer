@@ -34,12 +34,12 @@ int start_server(CEServerStr serverStr)
   struct sockaddr_in client_address;
   while (1)
   {
+    // client_socket = accept(server_socket, NULL, NULL);
+    client_socket = accept(server_socket, (struct sockaddr *)&client_address, (socklen_t*) sizeof(client_address));
     char buffer[30000] = {0};
     read(client_socket, buffer, 30000);
     printf("%s\n", buffer);
-    // client_socket = accept(server_socket, NULL, NULL);
-    client_socket = accept(server_socket, (struct sockaddr *)&client_address, (socklen_t*) sizeof(client_address));
-    send(client_socket, server_messages, sizeof(server_messages), 0);
+    send(client_socket, buffer, sizeof(buffer), 0);
     // printf("Server sending message");
     close(client_socket);
   }
