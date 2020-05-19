@@ -35,10 +35,16 @@ int start_server(CEServerStr serverStr)
   while (1)
   {
     // client_socket = accept(server_socket, NULL, NULL);
-    client_socket = accept(server_socket, (struct sockaddr *)&client_address, ((socklen_t*) sizeof(client_address)));
-    char buffer[30000] = {0};
-    read(client_socket, buffer, 30000);
-    printf("%d\n", client_address.sin_family);
+    client_socket = accept(server_socket, (struct sockaddr *)&client_address, ((socklen_t *)sizeof(client_address)));
+
+    //
+    // receive data
+    char client_response[256];
+    recv(client_socket, &client_response, sizeof(client_response), 0);
+
+    //print out the server's response
+    printf("The client sent the data: %s\n", client_response);
+
     send(client_socket, server_messages, sizeof(server_messages), 0);
     // printf("Server sending message");
     close(client_socket);
