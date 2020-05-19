@@ -12,7 +12,7 @@ static const char LOG_FILE[] = "/var/log/ce-image-server.log";
  */
 int start_server(CEServerStr serverStr)
 {
-  char server_messages[256] = "HTTP/1.1 200 OK\r\n"
+  char server_messages[1024] = "HTTP/1.1 200 OK\r\n"
 "Content-Type: text/html; charset=UTF-8\r\n\r\n"
 "<!DOCTYPE html><html><head><title>Bye-bye baby bye-bye</title>"
 "<style>body { background-color: #111 }"
