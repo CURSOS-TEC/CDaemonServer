@@ -13,7 +13,7 @@ static const char LOG_FILE[] = "/var/log/ce-image-server.log";
  */
 int start_server(CEServerStr serverStr)
 {
-  char server_messages[256] = "GET /?st=1 HTTP/1.1\r\nHost: 52.226.138.182:8080\r\n\r\n";
+  char server_messages[256] = "HTTP/1.1 200 OK\r\n\n";
   // create the server socket
   int server_socket;
 
