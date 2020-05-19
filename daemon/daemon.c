@@ -99,7 +99,7 @@ int main(int argc, char **argv)
         {
             port_number : 9007
         };
-    start_http_server(serverStr);
+    start_server(serverStr);
     LOG_MESSAGE("Server finished");
     return 0;
 }
