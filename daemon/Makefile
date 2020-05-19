@@ -17,9 +17,19 @@ clean:
 	rm /usr/bin/${OUTPUT_FILE} 
 	rm ${SERVICE_PATH_FILE}/${SERVICE_FILE}
 	rm -rf ${SERVICE_LOG_PATH}/${SERVICE_LOG_FILE}
-service_start: 
+open_log:
+	code  ${SERVICE_LOG_PATH}/${SERVICE_LOG_FILE}
+
+sys_start: 
 	systemctl start ce-image-server
-service_status:
+sys_status:
 	systemctl  status ${SERVICE_NAME} 
-service_stop: 
+sys_stop: 
 	systemctl stop ${SERVICE_NAME}
+	
+ser_start:
+	service ${SERVICE_NAME} start 
+ser_status:
+	service ${SERVICE_NAME} status 
+ser_stop:
+	service ${SERVICE_NAME} stop 

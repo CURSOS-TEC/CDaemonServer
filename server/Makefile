@@ -5,3 +5,5 @@ main:
 
 main2:
 	@${CC} CEServer.c CEmain.c -o cemain.o
+main3: 
+	@${CC} CEHTTPServer.c  -o cemain3.o

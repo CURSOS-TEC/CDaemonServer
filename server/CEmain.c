@@ -4,7 +4,7 @@ int main()
 {
     CEServerStr serverStr =
         {
-            port_number : 9001
+            port_number : 9007
         };
     start_server(serverStr);
 };

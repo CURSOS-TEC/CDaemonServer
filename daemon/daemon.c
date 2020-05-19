@@ -19,6 +19,8 @@ int main(int argc, char **argv)
 {
     pid_t pid, sid;
     pid = fork();
+    /* Daemon-specific initialization goes here */
+    FILE *fp;
 
     /* Fork off the parent process */
     if (pid < 0)
@@ -67,21 +69,17 @@ int main(int argc, char **argv)
     close(STDIN_FILENO);
     close(STDOUT_FILENO);
     close(STDERR_FILENO);
-
-    /* Daemon-specific initialization goes here */
-    FILE *fp;
     int i;
-
-    /* The Big Loop */
-    fp = fopen(LOG_FILE, "a");
-    fprintf(fp, "Daemon initialize PID: %d now: %d-%02d-%02d %02d:%02d:%02d\n", pid, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-    fclose(fp);
-
-    CEServerStr serverStr =
-        {
-            port_number : 9001
-        };
-    start_server(serverStr);
+    while (1)
+    {
+        /* The Big Loop */
+        fp = fopen(LOG_FILE, "a");
+        time_t t = time(NULL);
+        struct tm tm = *localtime(&t);
+        fprintf(fp, "Daemon insertion now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+        fclose(fp);
+        sleep(1);
+    }
 
     return 0;
 }

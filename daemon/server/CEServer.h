@@ -14,5 +14,9 @@ typedef struct
  * Starts a server
  */ 
 int start_server(CEServerStr serverStr);
+/**
+ * Starts an  server
+ */ 
+int start_http_server(CEServerStr serverStr);
 
 #endif
