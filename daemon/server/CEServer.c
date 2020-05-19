@@ -46,11 +46,11 @@ int start_server(CEServerStr serverStr)
     {
 
       // receive data
-      char client_response[256];
-      recv(client_socket, &client_response, 256, 0);
+      char client_request[1024];
+      recv(client_socket, &client_request, 1024, 0);
 
       //print out the server's response
-      printf("The client sent the data: %s\n", client_response);
+      printf("The client sent the data: %s\n", client_request);
 
       send(client_socket, server_messages, sizeof(server_messages), 0);
       // printf("Server sending message");
