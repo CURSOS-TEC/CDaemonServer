@@ -6,7 +6,6 @@
 #include <unistd.h> // for close
 #include <string.h>
 #include <sys/select.h>
-#include <microhttpd.h>
 #include "CEServer.h"
 static const char LOG_FILE[] = "/var/log/ce-image-server.log";
 /**
@@ -130,7 +129,7 @@ int answer_to_connection (void *cls, struct MHD_Connection *connection,
 }
 
 int start_micro_http_server (CEServerStr serverStr)
-{
+{      
   struct MHD_Daemon *daemon;
 
   daemon = MHD_start_daemon (MHD_USE_POLL_INTERNALLY, serverStr.port_number, NULL, NULL,

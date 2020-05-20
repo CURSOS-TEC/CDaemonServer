@@ -1,5 +1,7 @@
 #ifndef CEServer_HEADER_FILE
 #define CEServer_HEADER_FILE
+#include <microhttpd.h>
+
 /**
  * This is an abstraction of the CE server which is going to be the server block
  */
