@@ -82,12 +82,6 @@ static int iterate_post(void *coninfo_cls,
                         uint64_t off,
                         size_t size)
 {
-
-  char template[] = "Ruta dinámica /home/%s/server/images/";
-  char *path = (char *)malloc(1 + strlen(template) + strlen(getuid()));
-  sprintf(path, template, getuid());
-  LOG_MESSAGE(path);
-
   char *filename = (char *)malloc(1 + strlen(IMAGE_PATH_FILE) + strlen(name));
   strcpy(filename, IMAGE_PATH_FILE);
   strcat(filename, name);
