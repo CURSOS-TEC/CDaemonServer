@@ -1,7 +1,7 @@
 #include "CEServer.h"
 
 static const char LOG_FILE[] = "/var/log/ce-image-server.log";
-static const char IMAGE_PATH_FILE[] = "~/images_server/";
+static const char IMAGE_PATH_FILE[] = "/home/santii/server/images";
 static const char DEV_LOG_FILE[] = "../ce-image-server.log";
 
 /**
