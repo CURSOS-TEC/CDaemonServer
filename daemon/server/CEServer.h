@@ -19,4 +19,18 @@ int start_server(CEServerStr serverStr);
  */ 
 int start_http_server(CEServerStr serverStr);
 
+/**
+ * 
+ */ 
+int answer_to_connection (void *cls, struct MHD_Connection *connection,
+                          const char *url,
+                          const char *method, const char *version,
+                          const char *upload_data,
+                          size_t *upload_data_size, void **con_cls);
+
+/**
+ * 
+ */ 
+int start_micro_http_server (CEServerStr serverStr);
+
 #endif

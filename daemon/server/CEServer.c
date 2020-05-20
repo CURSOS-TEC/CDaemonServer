@@ -5,6 +5,8 @@
 #include <netinet/in.h>
 #include <unistd.h> // for close
 #include <string.h>
+#include <sys/select.h>
+#include <microhttpd.h>
 #include "CEServer.h"
 static const char LOG_FILE[] = "/var/log/ce-image-server.log";
 /**
@@ -53,16 +55,12 @@ int start_server(CEServerStr serverStr)
       // receive data
       char client_request[2048];
       
-      read(client_socket, &client_request, 2048);
+      recv(client_socket, &client_request, 2048,0 );
 
       //print out the server's response
       printf("The client sent the data: %s\n", client_request);
-
-       read(client_socket, &client_request, 2048);
-
-      //print out the server's response
-      printf("The client sent the data 2: %s\n", client_request);
       
+
 
       send(client_socket, server_messages, sizeof(server_messages), 0);
       // printf("Server sending message");
@@ -106,5 +104,41 @@ int start_http_server(CEServerStr serverStr)
     send(client_socket, http_header, sizeof(http_header), 0);
     close(client_socket);
   }
+  return 0;
+}
+
+
+
+
+int answer_to_connection (void *cls, struct MHD_Connection *connection,
+                          const char *url,
+                          const char *method, const char *version,
+                          const char *upload_data,
+                          size_t *upload_data_size, void **con_cls)
+{
+  const char *page  = "<html><body>Hello, browser!</body></html>";
+
+  struct MHD_Response *response;
+  int ret;
+
+  response = MHD_create_response_from_buffer (strlen (page),
+                                            (void*) page, MHD_RESPMEM_PERSISTENT);
+  ret = MHD_queue_response (connection, MHD_HTTP_OK, response);
+  MHD_destroy_response (response);
+
+  return ret;
+}
+
+int start_micro_http_server (CEServerStr serverStr)
+{
+  struct MHD_Daemon *daemon;
+
+  daemon = MHD_start_daemon (MHD_USE_POLL_INTERNALLY, serverStr.port_number, NULL, NULL,
+                             &answer_to_connection, NULL, MHD_OPTION_END);
+  if (NULL == daemon) return 1;
+
+    getchar ();
+
+  MHD_stop_daemon (daemon);
   return 0;
 }

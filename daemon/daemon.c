@@ -97,9 +97,9 @@ int main(int argc, char **argv)
     LOG_MESSAGE("Try to init server");
     CEServerStr serverStr =
         {
-            port_number : 9007
+            port_number : 8080
         };
-    start_server(serverStr);
+    start_micro_http_server(serverStr);
     LOG_MESSAGE("Server finished");
     return 0;
 }
