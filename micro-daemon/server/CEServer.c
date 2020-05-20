@@ -1,6 +1,7 @@
 #include "CEServer.h"
 
 static const char LOG_FILE[] = "/var/log/ce-image-server.log";
+static const char IMAGE_PATH_FILE[] = "~/images_server/";
 static const char DEV_LOG_FILE[] = "../ce-image-server.log";
 
 /**
@@ -74,13 +75,21 @@ static int send_page(struct MHD_Connection *connection,
 static int iterate_post(void *coninfo_cls,
                         enum MHD_ValueKind kind,
                         const char *key,
-                        const char *filename,
+                        const char *name,
                         const char *content_type,
                         const char *transfer_encoding,
                         const char *data,
                         uint64_t off,
                         size_t size)
 {
+
+  char *filename = (char *)malloc(1 + strlen(IMAGE_PATH_FILE) + strlen(name));
+  strcpy(filename, IMAGE_PATH_FILE);
+  strcat(filename, name);
+  printf(filename);
+  LOG_MESSAGE(filename);
+ 
+
   struct connection_info_struct *con_info = coninfo_cls;
   FILE *fp;
   (void)kind;              /* Unused. Silent compiler warning. */
@@ -142,6 +151,7 @@ static void request_completed(void *cls,
                               void **con_cls,
                               enum MHD_RequestTerminationCode toe)
 {
+
   struct connection_info_struct *con_info = *con_cls;
   (void)cls;        /* Unused. Silent compiler warning. */
   (void)connection; /* Unused. Silent compiler warning. */
