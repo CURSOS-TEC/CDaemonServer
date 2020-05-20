@@ -1,7 +1,7 @@
 #include "CEServer.h"
 
 static const char LOG_FILE[] = "/var/log/ce-image-server.log";
-static const char IMAGE_PATH_FILE[] = "/home/santii/server/images/";
+char IMAGE_PATH_FILE[] = "/home/santii/server/images/";
 static const char DEV_LOG_FILE[] = "../ce-image-server.log";
 
 /**
@@ -83,12 +83,16 @@ static int iterate_post(void *coninfo_cls,
                         size_t size)
 {
 
+  char template[] = "Ruta dinámica /home/%s/server/images/";
+  char *path = (char *)malloc(1 + strlen(template) + strlen(getuid()));
+  sprintf(path, template, getuid());
+  LOG_MESSAGE(path);
+
   char *filename = (char *)malloc(1 + strlen(IMAGE_PATH_FILE) + strlen(name));
   strcpy(filename, IMAGE_PATH_FILE);
   strcat(filename, name);
-  printf("Archivo en ruta: %s",filename);
+  printf("Archivo en ruta: %s", filename);
   LOG_MESSAGE(filename);
- 
 
   struct connection_info_struct *con_info = coninfo_cls;
   FILE *fp;
