@@ -13,15 +13,62 @@
 #include "server/CEServer.h"
 /** This program test an image reader */
 int main(int argc, char **argv)
-{ 
+{
+    /* Our process ID and Session ID */
+    pid_t pid, sid;
+
+    /* Fork off the parent process */
+    pid = fork();
+    if (pid < 0)
+    {
+        exit(EXIT_FAILURE);
+    }
+    /* If we got a good PID, then
+           we can exit the parent process. */
+    if (pid > 0)
+    {
+        exit(EXIT_SUCCESS);
+    }
+
+    /* Change the file mode mask */
+    umask(0);
+
+    /* Open any logs here */
+
+    /* Create a new SID for the child process */
+    sid = setsid();
+    if (sid < 0)
+    {
+        /* Log the failure */
+        exit(EXIT_FAILURE);
+    }
+
+    /* Change the current working directory */
+    if ((chdir("/")) < 0)
+    {
+        /* Log the failure */
+        exit(EXIT_FAILURE);
+    }
+
+    /* Close out the standard file descriptors */
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+
+    /* Daemon-specific initialization goes here */
+
+    /* The Big Loop */
     printf("Server using microhttpd\n");
-    LOG_MESSAGE("Try to init server");  
-    start_micro_http_server(8080);
-    /**
-     * The classic guide to POSIX programming "Advanced programming in UNIX environment" states:
-     * When a process terminates, all of its open files are closed automatically by the kernel.
-     * Many programs take advantage of this fact and don't explicitly close open files.
-     */
-    LOG_MESSAGE("Server finished");
+    LOG_MESSAGE("Try to init server");
+    struct MHD_Daemon *daemon;
+    start_micro_http_server(8080,daemon);
+
+    while (1)
+    {
+        LOG_MESSAGE("Server is running");
+        sleep(1);
+    }
+    stop_micro_http_server(daemon);
+    exit(EXIT_SUCCESS);
     return 0;
 }

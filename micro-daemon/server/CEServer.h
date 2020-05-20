@@ -33,6 +33,9 @@ int answer_to_connection (void *cls, struct MHD_Connection *connection,
 /**
  * 
  */ 
-int start_micro_http_server (int port);
+void start_micro_http_server (int port,struct MHD_Daemon *daemon);
 
+/**
+ */ 
+void  stop_micro_http_server(struct MHD_Daemon *daemon);
 #endif
