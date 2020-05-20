@@ -1,0 +1,3 @@
+● ce-image-server.service - Daemon for image server
+   Loaded: loaded (/etc/systemd/system/ce-image-server.service; disabled; vendor preset: enabled)
+   Active: inactive (dead)
