@@ -86,7 +86,7 @@ static int iterate_post(void *coninfo_cls,
   char *filename = (char *)malloc(1 + strlen(IMAGE_PATH_FILE) + strlen(name));
   strcpy(filename, IMAGE_PATH_FILE);
   strcat(filename, name);
-  printf(filename);
+  printf("Archivo en ruta: %s",filename);
   LOG_MESSAGE(filename);
  
 
