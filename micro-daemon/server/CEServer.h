@@ -1,7 +1,15 @@
 #ifndef CEServer_HEADER_FILE
 #define CEServer_HEADER_FILE
 #include <microhttpd.h>
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <unistd.h> // for close
+#include <string.h>
+#include <sys/select.h>
+#include <time.h>
 /**
  * This is an abstraction of the CE server which is going to be the server block
  */
@@ -12,15 +20,7 @@ typedef struct
      */
     int port_number;
 } CEServerStr;
-/**
- * Starts a server
- */ 
-int start_server(CEServerStr serverStr);
-/**
- * Starts an  server
- */ 
-int start_http_server(CEServerStr serverStr);
-
+void LOG_MESSAGE(char message[]);
 /**
  * 
  */ 
@@ -33,6 +33,6 @@ int answer_to_connection (void *cls, struct MHD_Connection *connection,
 /**
  * 
  */ 
-int start_micro_http_server (CEServerStr serverStr);
+int start_micro_http_server (int port);
 
 #endif

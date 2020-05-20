@@ -33,3 +33,5 @@ ser_status:
 	service ${SERVICE_NAME} status 
 ser_stop:
 	service ${SERVICE_NAME} stop 
+journal: 
+	journalctl -f -a -u ${SERVICE_NAME}

@@ -4,6 +4,9 @@ Description=Daemon for image server
 [Service]
 Type=forking
 ExecStart=/usr/bin/ce.image.server.daemon.o
+Restart=on-failure
+RestartSec=10
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target
