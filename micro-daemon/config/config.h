@@ -1,7 +1,7 @@
 #include <libconfig.h>
 
-#define DEFAULT_PORT 8008
-#define DEFAULT_SLEEP_TIME 10
+#define DEFAULT_PORT 8080
+#define DEFAULT_SLEEP_TIME 1
 
 static const char *FILE_CONFIG = "imageserver.cfg";
 
