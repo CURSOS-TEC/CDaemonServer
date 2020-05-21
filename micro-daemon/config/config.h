@@ -3,7 +3,7 @@
 #define DEFAULT_PORT 8080
 #define DEFAULT_SLEEP_TIME 1
 
-static const char *FILE_CONFIG = "imageserver.cfg";
+static const char *FILE_CONFIG = "/etc/ceserver/imageserver.cfg";
 
 config_t cfg;
 config_setting_t *sleep_daemon_setting;
