@@ -313,10 +313,13 @@ int start_micro_http_server(int port, struct MHD_Daemon *daemon)
                             MHD_OPTION_END);
 
   if (NULL == daemon)
-    return 1;
+  {
+    return 0;
+  }
+  return 1;
 }
 
-void stop_micro_http_server(struct MHD_Daemon *daemon)
+int stop_micro_http_server(struct MHD_Daemon *daemon)
 {
   MHD_stop_daemon(daemon);
 }

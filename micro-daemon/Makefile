@@ -6,7 +6,7 @@ SERVICE_LOG_PATH = /var/log
 SERVICE_FILE = ${SERVICE_NAME}.service
 SERVICE_PATH_FILE = /etc/systemd/system
 main: daemon.c
-	@${CC} ./server/CEServer.c daemon.c -o ${OUTPUT_FILE} -lmicrohttpd
+	@${CC} ./server/CEServer.c ./config/config.c daemon.c -o ${OUTPUT_FILE} -lmicrohttpd `pkg-config --libs libconfig`
 install: 	
 
 	cp ${OUTPUT_FILE} /usr/bin/${OUTPUT_FILE}

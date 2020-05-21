@@ -11,9 +11,14 @@
 #include <string.h>
 #include <time.h>
 #include "server/CEServer.h"
+#include "config/config.h"
 /** This program test an image reader */
 int main(int argc, char **argv)
 {
+
+    // STARTING SERVER
+    printf("Iniciando el Servidor Image\n");
+
     /* Our process ID and Session ID */
     pid_t pid, sid;
 
@@ -60,15 +65,31 @@ int main(int argc, char **argv)
     /* The Big Loop */
     printf("Server using microhttpd\n");
     LOG_MESSAGE("Try to init server");
+    // CONSTANTES CONFIGURABLES
+    int PORT, SLEEP_TIME, ACTIVE;
+    // GETTING CONFIG
+    PORT = get_port_config();
+    printf("Puerto leído: %d\n", PORT);
+    SLEEP_TIME = get_sleep_time();
+    printf("TIEMPO LEÍDO: %d\n", SLEEP_TIME);
     struct MHD_Daemon *daemon;
-    start_micro_http_server(8080,daemon);
+    ACTIVE = start_micro_http_server(PORT, daemon);
+    if (!ACTIVE)
+    {
+        printf("ERROR: No se pudo inicializar el servidor\n");
+        return 1;
+    }
+    update_active(ACTIVE);
 
-    while (1)
+    while (ACTIVE)
     {
         LOG_MESSAGE("Server is running");
-        sleep(1);
+        ACTIVE = check_active();
+        sleep(SLEEP_TIME);
     }
+    printf("Terminando el Image Server ...");
     stop_micro_http_server(daemon);
+    printf("Finalizado.\n");
     exit(EXIT_SUCCESS);
     return 0;
 }

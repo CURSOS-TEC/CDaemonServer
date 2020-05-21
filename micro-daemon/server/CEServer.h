@@ -93,5 +93,5 @@ int start_micro_http_server(int port, struct MHD_Daemon *daemon);
 /**
  * Stops a micro http server
  */
-void stop_micro_http_server(struct MHD_Daemon *daemon);
+int stop_micro_http_server(struct MHD_Daemon *daemon);
 #endif
