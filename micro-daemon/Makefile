@@ -5,6 +5,8 @@ SERVICE_LOG_FILE = ce-image-server.log
 SERVICE_LOG_PATH = /var/log
 SERVICE_FILE = ${SERVICE_NAME}.service
 SERVICE_PATH_FILE = /etc/systemd/system
+CONFIG_FILE_NAME = imageserver.cfg
+CONFIG_PAHT_FILE = /etc/ceserver
 main: daemon.c
 	@${CC} ./server/CEServer.c ./config/config.c daemon.c -o ${OUTPUT_FILE} -lmicrohttpd `pkg-config --libs libconfig`
 install: 	
@@ -12,11 +14,13 @@ install:
 	cp ${OUTPUT_FILE} /usr/bin/${OUTPUT_FILE}
 	cp ${SERVICE_FILE} ${SERVICE_PATH_FILE}/${SERVICE_FILE}
 	cp ${SERVICE_LOG_FILE} ${SERVICE_LOG_PATH}/${SERVICE_LOG_FILE}
+	cp config/${CONFIG_FILE_NAME} ${CONFIG_PAHT_FILE}/${CONFIG_FILE_NAME}
 clean: 
-	rm -rf *.o
+	rm  *.o
 	rm /usr/bin/${OUTPUT_FILE} 
 	rm ${SERVICE_PATH_FILE}/${SERVICE_FILE}
-	rm -rf ${SERVICE_LOG_PATH}/${SERVICE_LOG_FILE}
+	rm ${SERVICE_LOG_PATH}/${SERVICE_LOG_FILE}
+	rm ${CONFIG_PAHT_FILE}/${CONFIG_FILE_NAME}
 open_log:
 	code  ${SERVICE_LOG_PATH}/${SERVICE_LOG_FILE}
 
