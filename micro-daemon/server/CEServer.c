@@ -283,7 +283,7 @@ int answer_to_connection(void *cls, struct MHD_Connection *connection,
       con_info->answercode = MHD_HTTP_OK;
 
       /** Process image **/
-      // struct ImageInfo info = readImage(con_info->pathfile);
+      struct ImageInfo info = readImage(con_info->pathfile);
       // printf(" Reading file: %s\n Size: width : %zu pixels and height: %zu pixels. \n",
       //        con_info->pathfile,
       //        info._width,
