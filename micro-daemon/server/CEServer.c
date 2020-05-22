@@ -290,6 +290,7 @@ int answer_to_connection(void *cls, struct MHD_Connection *connection,
              con_info->name,
              info._width,
              info._height);
+      applyFilterAVG(info);
       applyFilterRGB(info);
       printf(" File %s \n", con_info->pathfile);
     }

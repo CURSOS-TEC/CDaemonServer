@@ -54,7 +54,7 @@ void setColorToRegion(MagickWand *magick_wand, unsigned long int row, unsigned l
 /**
  * Applies AVG filter.
  */
-void applyFilterAVG(MagickWand *magick_wand);
+void applyFilterAVG(struct ImageInfo info);
 
 void applyFilterRGB(struct ImageInfo info);
 #endif

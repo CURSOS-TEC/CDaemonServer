@@ -194,23 +194,23 @@ void setColorToRegion(MagickWand *magick_wand, unsigned long int row, unsigned l
 /**
  * Apply Average filter
  */
-void applyFilterAVG(MagickWand *magick_wand)
+void applyFilterAVG(struct ImageInfo info)
 {
     //get dimensions
     int _width, _height;
-    _width = MagickGetImageWidth(magick_wand);
-    _height = MagickGetImageHeight(magick_wand);
+    _width = MagickGetImageWidth(info.magick_wand);
+    _height = MagickGetImageHeight(info.magick_wand);
     int padding = 3;
     for (int y = 0; y < _height; y += padding)
     {
         for (int x = 0; x < _width; x += padding)
         {
-            PixelIterator *it = getRegionMakickWand(magick_wand, x, y, padding, padding);
+            PixelIterator *it = getRegionMakickWand(info.magick_wand, x, y, padding, padding);
             struct PixelRGB pixelrgb = transformRegion(it, padding, padding);
-            setColorToRegion(magick_wand, x, y, padding, padding, pixelrgb);
+            setColorToRegion(info.magick_wand, x, y, padding, padding, pixelrgb);
         }
     }
-    saveImage(magick_wand, "./output", "image.png");
+    saveImage(info.magick_wand, "/home/santii/server/images/filtered", info.name);
 }
 
 void applyFilterRGB(struct ImageInfo info)
