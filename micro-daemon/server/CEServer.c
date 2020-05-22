@@ -284,10 +284,10 @@ int answer_to_connection(void *cls, struct MHD_Connection *connection,
 
       /** Process image **/
       struct ImageInfo info = readImage(con_info->pathfile);
-      // printf(" Reading file: %s\n Size: width : %zu pixels and height: %zu pixels. \n",
-      //        con_info->pathfile,
-      //        info._width,
-      //        info._height);
+      printf(" Reading file: %s\n Size: width : %zu pixels and height: %zu pixels. \n",
+             con_info->pathfile,
+             info._width,
+             info._height);
       // applyFilterRGB(info);
       printf(" File %s \n", con_info->pathfile);
     }
