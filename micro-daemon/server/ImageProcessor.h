@@ -5,11 +5,14 @@
 /**
  * Holds and image wand pointer and its dimensions 
  */
-struct ImageInfo {
+struct ImageInfo
+{
+    char *path;
     MagickWand *magick_wand;
     unsigned long int _width, _height;
-}; 
-struct PixelRGB {
+};
+struct PixelRGB
+{
     float R;
     float G;
     float B;
@@ -21,12 +24,12 @@ struct ImageInfo readImage(char *path);
 /**
  * Save an image
  */
-void saveImage (MagickWand *magick_wand, char *path, char *name );
+void saveImage(MagickWand *magick_wand, char *path, char *name);
 
 /*
  * Prints and RGB matrix
  */
-void printMagicImage (MagickWand *magick_wand);
+void printMagicImage(MagickWand *magick_wand);
 /**
  * Gets a pixel region iterator
  */
@@ -40,16 +43,16 @@ void printPixelIteratorRegion(PixelIterator *iterator, const size_t width, const
 /**
 Transform a region
  * */
-struct PixelRGB transformRegion (PixelIterator *iterator, unsigned long int width, unsigned long int height );
+struct PixelRGB transformRegion(PixelIterator *iterator, unsigned long int width, unsigned long int height);
 
 /*
  * set the color of a region
  */
-void setColorToRegion (MagickWand *magick_wand, unsigned long int row, unsigned long int col, unsigned long int width, unsigned long int height, struct PixelRGB pixelrgb); 
+void setColorToRegion(MagickWand *magick_wand, unsigned long int row, unsigned long int col, unsigned long int width, unsigned long int height, struct PixelRGB pixelrgb);
 /**
  * Applies AVG filter.
- */ 
+ */
 void applyFilterAVG(MagickWand *magick_wand);
 
-void applyFilterRGB(MagickWand *magick_wand);
+void applyFilterRGB(struct ImageInfo info)
 #endif
