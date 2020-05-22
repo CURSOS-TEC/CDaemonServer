@@ -20,7 +20,7 @@
  * Reads and image
  * 
  */
-struct ImageInfo readImage(char *path)
+struct ImageInfo readImage(char *path, const char *name)
 {
     unsigned long int _width, _height;
     MagickWand *magick_wand = NULL;
@@ -37,6 +37,8 @@ struct ImageInfo readImage(char *path)
     //printf(" Reading file: %s\n Size: width : %d pixels and height: %d pixels. \n", path, _width, _height);
     struct ImageInfo info =
         {
+            path,
+            name,
             magick_wand,
             _width,
             _height};
@@ -46,7 +48,7 @@ struct ImageInfo readImage(char *path)
 /**
  * Saves the image for a given path and file name.
  */
-void saveImage(MagickWand *magick_wand, char *path, char *name)
+void saveImage(MagickWand *magick_wand, char *path,const char *name)
 {
     char complete_path[128];
     sprintf(complete_path, "%s/%s", path, name);
@@ -236,17 +238,17 @@ void applyFilterRGB(struct ImageInfo info)
     if (red >= green && red >= blue)
     {
         printf("R: %d, G: %d, B: %d color red\n", red, green, blue);
-        saveImage(info.magick_wand, "/home/santii/server/images/red", "image.png");
+        saveImage(info.magick_wand, "/home/santii/server/images/red", info.name);
     }
     else if (blue >= green && blue >= red)
     {
         printf("R: %d, G: %d, B: %d color  blue\n", red, green, blue);
-        saveImage(info.magick_wand, "/home/santii/server/images/blue", "image.png");
+        saveImage(info.magick_wand, "/home/santii/server/images/blue", info.name);
     }
     else
     {
         printf("R: %d, G: %d, B: %d color  green\n", red, green, blue);
-        saveImage(info.magick_wand, "/home/santii/server/images/green", "image.png");
+        saveImage(info.magick_wand, "/home/santii/server/images/green", info.name);
     }
     // saveImage(magick_wand, "./output", "image.png");
 }

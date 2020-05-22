@@ -7,6 +7,8 @@
  */
 struct ImageInfo
 {
+    char *pathfile;
+    const char *name; 
     MagickWand *magick_wand;
     unsigned long int _width, _height;
 };
@@ -19,11 +21,11 @@ struct PixelRGB
 /**
  * Reads an image and then return a Image info struct
  */
-struct ImageInfo readImage(char *path);
+struct ImageInfo readImage(char *path, const char *name);
 /**
  * Save an image
  */
-void saveImage(MagickWand *magick_wand, char *path, char *name);
+void saveImage(MagickWand *magick_wand, char *path, const char *name);
 void saveImagePath(MagickWand *magick_wand, char *path);
 
 /*
