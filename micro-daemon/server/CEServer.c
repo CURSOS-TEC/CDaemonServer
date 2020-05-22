@@ -281,6 +281,13 @@ int answer_to_connection(void *cls, struct MHD_Connection *connection,
       /* No errors encountered, declare success */
       con_info->answerstring = completepage;
       con_info->answercode = MHD_HTTP_OK;
+
+      /** Process image **/
+      struct ImageInfo info = readImage(con_info->pathfile);
+      printf(" Reading file: %s\n Size: width : %d pixels and height: %d pixels. \n",
+             con_info->pathfile,
+             info._width,
+             info._height);
     }
     return send_page(connection,
                      con_info->answerstring,
