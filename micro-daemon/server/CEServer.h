@@ -11,7 +11,7 @@
 #include <sys/select.h>
 #include <time.h>
 #include <syslog.h>
-
+#include "ImageProcessor.h"
 /**
  * For Post constants
  */
@@ -43,6 +43,7 @@ typedef struct
  */
 struct connection_info_struct
 {
+    char *pathfile;
     int connectiontype;
     const char *answerstring;
     int answercode;

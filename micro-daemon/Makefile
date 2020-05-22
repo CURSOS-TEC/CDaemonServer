@@ -8,7 +8,7 @@ SERVICE_PATH_FILE = /etc/systemd/system
 CONFIG_FILE_NAME = imageserver.cfg
 CONFIG_PAHT_FILE = /etc/ceserver
 main: daemon.c
-	@${CC} ./server/CEServer.c ./config/config.c daemon.c -o ${OUTPUT_FILE} -lmicrohttpd `pkg-config --libs libconfig`
+	@${CC} ./server/ImageProcessor.c ./server/CEServer.c ./config/config.c daemon.c -o ${OUTPUT_FILE} -lmicrohttpd `pkg-config  --cflags --libs libconfig MagickWand`
 install: 	
 
 	cp ${OUTPUT_FILE} /usr/bin/${OUTPUT_FILE}

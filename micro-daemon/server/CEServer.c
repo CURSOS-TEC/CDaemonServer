@@ -1,5 +1,4 @@
 #include "CEServer.h"
-
 static const char LOG_FILE[] = "/var/log/ce-image-server.log";
 char IMAGE_PATH_FILE[] = "/home/santii/server/images/";
 static const char DEV_LOG_FILE[] = "../ce-image-server.log";
@@ -97,6 +96,7 @@ static int iterate_post(void *coninfo_cls,
 
   if (0 != strcmp(key, "file"))
   {
+    con_info->pathfile = filename;
     con_info->answerstring = servererrorpage;
     con_info->answercode = MHD_HTTP_BAD_REQUEST;
     return MHD_YES;
