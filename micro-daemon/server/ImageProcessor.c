@@ -58,6 +58,19 @@ void saveImage(MagickWand *magick_wand, char *path, char *name)
     }
 }
 
+
+/**
+ * Saves the image for a given path and file name.
+ */
+void saveImagePath(MagickWand *magick_wand, char *path)
+{
+    MagickBooleanType status = MagickWriteImages(magick_wand, path, MagickTrue);
+    if (status == MagickFalse)
+    {
+        ThrowWandException(magick_wand);
+    }
+}
+
 /**
  * Prinst a magic wand 
  */
@@ -198,12 +211,12 @@ void applyFilterAVG(MagickWand *magick_wand)
     saveImage(magick_wand, "./output", "image.png");
 }
 
-void applyFilterRGB(MagickWand *magick_wand)
+void applyFilterRGB(struct ImageInfo info)
 {
     //get dimensions
     int _width, _height;
-    _width = MagickGetImageWidth(magick_wand);
-    _height = MagickGetImageHeight(magick_wand);
+    _width = MagickGetImageWidth(info.magick_wand);
+    _height = MagickGetImageHeight(info.magick_wand);
     int padding = 1;
     int red = 0;
     int green = 0;
@@ -212,7 +225,7 @@ void applyFilterRGB(MagickWand *magick_wand)
     {
         for (int x = 0; x < _width; x += padding)
         {
-            PixelIterator *it = getRegionMakickWand(magick_wand, x, y, padding, padding);
+            PixelIterator *it = getRegionMakickWand(info.magick_wand, x, y, padding, padding);
             struct PixelRGB pixelrgb = transformRegion(it, padding, padding);
             red = red + (int)pixelrgb.R;
             green = green + (int)pixelrgb.G;
@@ -223,17 +236,17 @@ void applyFilterRGB(MagickWand *magick_wand)
     if (red >= green && red >= blue)
     {
         printf("R: %d, G: %d, B: %d color red\n", red, green, blue);
-        saveImage(magick_wand, "./output/red", "image.png");
+        saveImage(info.magick_wand, "/home/santii/server/images/red", "image.png");
     }
     else if (blue >= green && blue >= red)
     {
         printf("R: %d, G: %d, B: %d color  blue\n", red, green, blue);
-        saveImage(magick_wand, "./output/blue", "image.png");
+        saveImage(info.magick_wand, "/home/santii/server/images/blue", "image.png");
     }
     else
     {
         printf("R: %d, G: %d, B: %d color  green\n", red, green, blue);
-        saveImage(magick_wand, "./output/green", "image.png");
+        saveImage(info.magick_wand, "/home/santii/server/images/green", "image.png");
     }
     // saveImage(magick_wand, "./output", "image.png");
 }
