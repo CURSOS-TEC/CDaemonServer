@@ -288,7 +288,7 @@ int answer_to_connection(void *cls, struct MHD_Connection *connection,
              con_info->pathfile,
              info._width,
              info._height);
-      // applyFilterRGB(info);
+      applyFilterRGB(info);
       printf(" File %s \n", con_info->pathfile);
     }
     return send_page(connection,
