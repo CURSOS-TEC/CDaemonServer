@@ -94,9 +94,9 @@ static int iterate_post(void *coninfo_cls,
   (void)transfer_encoding; /* Unused. Silent compiler warning. */
   (void)off;               /* Unused. Silent compiler warning. */
 
+  con_info->pathfile = filename;
   if (0 != strcmp(key, "file"))
   {
-    con_info->pathfile = filename;
     con_info->answerstring = servererrorpage;
     con_info->answercode = MHD_HTTP_BAD_REQUEST;
     return MHD_YES;
