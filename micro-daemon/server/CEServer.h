@@ -44,6 +44,7 @@ typedef struct
 struct connection_info_struct
 {
     char *pathfile;
+    char *name;
     int connectiontype;
     const char *answerstring;
     int answercode;

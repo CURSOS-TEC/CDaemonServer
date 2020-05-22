@@ -95,6 +95,7 @@ static int iterate_post(void *coninfo_cls,
   (void)off;               /* Unused. Silent compiler warning. */
 
   con_info->pathfile = filename;
+  con_info->name = name;
   if (0 != strcmp(key, "file"))
   {
     con_info->answerstring = servererrorpage;
@@ -284,8 +285,9 @@ int answer_to_connection(void *cls, struct MHD_Connection *connection,
 
       /** Process image **/
       struct ImageInfo info = readImage(con_info->pathfile);
-      printf(" Reading file: %s\n Size: width : %zu pixels and height: %zu pixels. \n",
+      printf(" Reading file: %s     [%s]     Size: width : %zu pixels and height: %zu pixels. \n",
              con_info->pathfile,
+             con_info->name,
              info._width,
              info._height);
       applyFilterRGB(info);
