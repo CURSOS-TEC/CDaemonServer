@@ -37,7 +37,7 @@ void LOG_MESSAGE(char message[])
   if (fp)
   {
 
-    printf("\nSaving to file: message: %s\n", message);
+    printf("\n Log message: %s\n", message);
     fprintf(fp, "[%s] %d-%02d-%02d %02d:%02d:%02d PID %d \n", message, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, getpid());
     fclose(fp);
   }
